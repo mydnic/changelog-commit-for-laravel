@@ -24,14 +24,18 @@ class ChangelogCommitForLaravel
                     })
                     ->implode("\n");
 
-                return [
-                    'commit_url' => $commit['html_url'],
-                    'message' => $detailedMessages,
-                    'date' => $commit['commit']['author']['date'],
-                ];
+                if ($detailedMessages) {
+                    return [
+                        'commit_url' => $commit['html_url'],
+                        'message' => $detailedMessages,
+                        'date' => $commit['commit']['author']['date'],
+                    ];
+                }
             }
 
             return null;
-        })->filter();
+        })
+            ->filter()
+            ->values();
     }
 }
