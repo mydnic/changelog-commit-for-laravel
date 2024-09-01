@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Mydnic\ChangelogCommitForLaravel\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ChangelogCommitForLaravelCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'changelog-commit-for-laravel';
 
     public $description = 'My command';
 

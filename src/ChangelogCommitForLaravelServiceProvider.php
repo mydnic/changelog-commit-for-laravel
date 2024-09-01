@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Mydnic\ChangelogCommitForLaravel;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use Mydnic\ChangelogCommitForLaravel\Commands\ChangelogCommitForLaravelCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class ChangelogCommitForLaravelServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('changelog-commit-for-laravel')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_migration_table_name_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_changelog_commit_for_laravel_table')
+            ->hasCommand(ChangelogCommitForLaravelCommand::class);
     }
 }
