@@ -10,8 +10,8 @@ it('correctly fetches the message from a commit', function () {
             'message' => 'feat: fix issue with authentication
 
 > You can now login without any issue
-> Enjoy!'
-        ]
+> Enjoy!',
+        ],
     ];
 
     $result = \Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravel::prepareCommits(collect([$commitMessage]));
@@ -30,8 +30,8 @@ it('ignores messages without a correctly formatted commit message', function () 
             ],
             'message' => 'feat: fix issue with authentication
 
-Refactor the code'
-        ]
+Refactor the code',
+        ],
     ];
 
     $result = \Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravel::prepareCommits(collect([$commitMessage]));
@@ -48,8 +48,8 @@ it('ignores messages without a correctly formatted commit message but keep good 
             ],
             'message' => 'feat: fix issue with authentication
 
-Refactor the code'
-        ]
+Refactor the code',
+        ],
     ];
 
     $commitMessage2 = [
@@ -61,8 +61,8 @@ Refactor the code'
             'message' => 'feat: fix issue with authentication
 
 > You can now login without any issue
-> Enjoy!'
-        ]
+> Enjoy!',
+        ],
     ];
 
     $result = \Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravel::prepareCommits(collect([$badcommitMessage, $commitMessage2]));
