@@ -7,8 +7,6 @@
 
 Automatically generate a changelog inside your Laravel App based on your commit descriptions.
 
-[[TOC]]
-
 ## Introduction
 
 When building a web project, it's important to let your users know what changed in each release, or even as soon as a bug is fixed. You might do that through a blog post, or on social media, but it's still a manual process.
