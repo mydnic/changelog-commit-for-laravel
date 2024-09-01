@@ -1,5 +1,9 @@
 <?php
 
+function normalizeLineEndings($string) {
+    return str_replace("\r\n", "\n", $string);
+}
+
 it('correctly fetches the message from a commit', function () {
     $commitMessage = [
         'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
@@ -7,12 +11,13 @@ it('correctly fetches the message from a commit', function () {
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => <<<EOF
+            'message' => normalizeLineEndings(<<<EOF
 feat: fix issue with authentication
 
 > You can now login without any issue
 > Enjoy!
-EOF,
+EOF
+            ),
         ],
     ];
 
@@ -30,11 +35,12 @@ it('ignores messages without a correctly formatted commit message', function () 
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => <<<EOF
+            'message' => normalizeLineEndings(<<<EOF
 feat: fix issue with authentication
 
 Refactor the code
-EOF,
+EOF
+            ),
         ],
     ];
 
@@ -50,11 +56,12 @@ it('ignores messages without a correctly formatted commit message but keep good 
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => <<<EOF
+            'message' => normalizeLineEndings(<<<EOF
 feat: fix issue with authentication
 
 Refactor the code
-EOF,
+EOF
+            ),
         ],
     ];
 
@@ -64,12 +71,13 @@ EOF,
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => <<<EOF
+            'message' => normalizeLineEndings(<<<EOF
 feat: fix issue with authentication
 
 > You can now login without any issue
 > Enjoy!
-EOF,
+EOF
+            ),
         ],
     ];
 
