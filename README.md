@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mydnic/changelog-commit-for-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mydnic/changelog-commit-for-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mydnic/changelog-commit-for-laravel.svg?style=flat-square)](https://packagist.org/packages/mydnic/changelog-commit-for-laravel)
 
-Automatically generate a changelog inside your Laravel App based on your commit descriptions.
+Automatically generate a changelog for your users inside your Laravel App based on your commit descriptions.
 
 ## Introduction
 
@@ -14,46 +14,6 @@ When building a web project, it's important to let your users know what changed 
 This package will automatically generate a changelog based on your commit descriptions. It will fetch the commit history from your repository and store the messages from your commit descriptions in a database table.
 
 You can then display the changelog in your app, or even send it to your users via email.
-
-## How it works
-
-### Write your commit messages
-
-Here's an example of a commit message:
-
-```
-feat: fix issue with authentication
-
-> You can now login without any issue
-> Enjoy!
-```
-
-As you can see, the commit message is composed of several lines. The first line is your usual commit message. The other lines can be used to add more details about the commit.
-
-But only the other lines starting with `>` will be used to generate the changelog.
-
-### Generate the changelog
-
-After you've pushed your commits, you can run the following command to generate the changelog:
-
-```bash
-php artisan changelog:generate
-```
-
-This will fetch the commit history from your repository and store the messages (all lines starting with `>`) from your commit descriptions in a database table.
-
-### Showing the changelog
-
-You can then display the changelog in your app, or even send it to your users via email.
-
-Here's an example of how to display the changelog in your app:
-
-```php
-$changelog = \Mydnic\ChangelogCommitForLaravel\Models\Changelog::all();
-
-// Grouped by date
-$changelog = \Mydnic\ChangelogCommitForLaravel\Models\Changelog::groupByDate();
-```
 
 
 ## Installation
@@ -103,9 +63,145 @@ return [
 
 ## Usage
 
+Once the package is installed on your project, you should add the `changelod:fetch` command to your deployment process.
+
+Now, every time your application is deployed, the changelog will be updated with the latest commit messages.
+
+
+### Write your commit messages
+
+Here's an example of a commit message:
+
+```
+fix: issue with authentication
+
+> You can now login without any issue
+> Enjoy!
+```
+
+As you can see, the commit message is composed of several lines. The first line is your usual commit message. The other lines can be used to add more details about the commit.
+
+But only the other lines starting with `>` will be used to generate the changelog.
+
+### Generate the changelog
+
+After you've pushed your commits, you can run the following command to fetch the commit history.
+Or you can add this command to your deployment process so you don't have to run it manually.
+
+```bash
+php artisan changelog:fetch
+```
+
+This will fetch the commit history from your repository and store the messages (all lines starting with `>`) from your commit descriptions in a database table.
+
+### Showing the changelog
+
+You can then display the changelog in your app, or even send it to your users via email.
+
+Here's an example of how to display the changelog in your app:
+
+Use the `Changelog` model to fetch the changelog entries in your application.
+
 ```php
-$changelogCommitForLaravel = new Mydnic\ChangelogCommitForLaravel();
-echo $changelogCommitForLaravel->echoPhrase('Hello, Mydnic!');
+use Mydnic\ChangelogCommitForLaravel\Models\Changelog;
+
+$changelogs = Changelog::latest()->paginate(50);
+
+return view('changelog', compact('changelogs'));
+// or return JSON response
+return response()->json($changelogs);
+```
+
+### Front End Examples
+
+Please submit more examples if you have any!
+
+#### VueJS Component
+
+```vue
+<template>
+    <div>
+        <div
+            v-for="date in Object.keys(groupedChangelog)"
+            :key="date"
+        >
+            <h2 class="text-lg font-semibold text-gray-800 mt-5 mb-1 capitalize">
+                {{ $filters.format(date, 'dddd DD MMM YYYY') }}
+            </h2>
+            <ul class="list-disc pl-4 text-gray-600 space-y-1">
+                <li
+                    v-for="item in groupedChangelog[date]"
+                    :key="item.message"
+                    class="text-sm"
+                >
+                    {{ item.message }}
+                </li>
+            </ul>
+        </div>
+
+        <div
+            v-if="pagination.last_page > pagination.current_page"
+            class="text-center mt-10"
+        >
+            <button
+                class="btn btn-sm"
+                :class="{ loading: isLoading }"
+                :disabled="isLoading"
+                @click="loadMore"
+            >
+                Load more...
+            </button>
+        </div>
+    </div>
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+    data () {
+        return {
+            changelog: [],
+            pagination: {}
+        }
+    },
+
+    computed: {
+        groupedChangelog () {
+            return this.changelog.reduce((acc, item) => {
+                const key = item.date
+                if (!acc[key]) {
+                    acc[key] = []
+                }
+                acc[key].push(item)
+                return acc
+            }, {})
+        }
+    },
+
+    created () {
+        this.getChangelog()
+    },
+
+    methods: {
+        getChangelog (page = 1) {
+            fetch('https://your-app.example/api/changelog?page=' + page)
+                .then(response => response.json())
+                .then((data) => {
+                    this.changelog = [...this.changelog, ...data.data]
+                    this.pagination = {
+                        current_page: data.current_page,
+                        last_page: data.last_page
+                    }
+                })
+        },
+
+        loadMore () {
+            this.getChangelog(this.pagination.current_page + 1)
+        }
+    }
+})
+</script>
 ```
 
 ## Testing

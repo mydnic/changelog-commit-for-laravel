@@ -16,11 +16,4 @@ class Changelog extends Model
         parent::__construct($attributes);
         $this->table = config('changelog-commit-for-laravel.table_name');
     }
-
-    public static function groupedByDate()
-    {
-        return self::select(['message', 'date'])
-            ->latest('id')
-            ->paginate(request()->get('per_page', 50));
-    }
 }
