@@ -3,8 +3,8 @@
 namespace Mydnic\ChangelogCommitForLaravel\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravelServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

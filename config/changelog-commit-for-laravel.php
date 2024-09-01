@@ -2,5 +2,5 @@
 
 // config for Mydnic/ChangelogCommitForLaravel
 return [
-    'table' => 'changelogs'
+    'table' => 'changelogs',
 ];

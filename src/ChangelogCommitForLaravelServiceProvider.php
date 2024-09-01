@@ -2,9 +2,9 @@
 
 namespace Mydnic\ChangelogCommitForLaravel;
 
+use Mydnic\ChangelogCommitForLaravel\Commands\ChangelogCommitForLaravelCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Mydnic\ChangelogCommitForLaravel\Commands\ChangelogCommitForLaravelCommand;
 
 class ChangelogCommitForLaravelServiceProvider extends PackageServiceProvider
 {
