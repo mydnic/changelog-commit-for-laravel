@@ -1,6 +1,7 @@
 <?php
 
-function normalizeLineEndings($string) {
+function normalizeLineEndings($string)
+{
     return str_replace("\r\n", "\n", $string);
 }
 
@@ -11,7 +12,7 @@ it('correctly fetches the message from a commit', function () {
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => normalizeLineEndings(<<<EOF
+            'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 > You can now login without any issue
@@ -35,7 +36,7 @@ it('ignores messages without a correctly formatted commit message', function () 
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => normalizeLineEndings(<<<EOF
+            'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 Refactor the code
@@ -56,7 +57,7 @@ it('ignores messages without a correctly formatted commit message but keep good 
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => normalizeLineEndings(<<<EOF
+            'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 Refactor the code
@@ -71,7 +72,7 @@ EOF
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => normalizeLineEndings(<<<EOF
+            'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 > You can now login without any issue
