@@ -3,9 +3,9 @@
 namespace Mydnic\ChangelogCommitForLaravel;
 
 use Mydnic\ChangelogCommitForLaravel\Commands\FetchGithubCommitCommand;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class ChangelogCommitForLaravelServiceProvider extends PackageServiceProvider
 {
@@ -26,6 +26,6 @@ class ChangelogCommitForLaravelServiceProvider extends PackageServiceProvider
                 $command
                     ->publishConfigFile()
                     ->publishMigrations();
-            });;
+            });
     }
 }

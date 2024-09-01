@@ -2,8 +2,8 @@
 
 namespace Mydnic\ChangelogCommitForLaravel;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class ChangelogCommitForLaravel
 {
@@ -30,6 +30,7 @@ class ChangelogCommitForLaravel
                     'date' => $commit['commit']['author']['date'],
                 ];
             }
+
             return null;
         })->filter();
     }
