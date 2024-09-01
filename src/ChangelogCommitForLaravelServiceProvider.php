@@ -2,9 +2,10 @@
 
 namespace Mydnic\ChangelogCommitForLaravel;
 
-use Mydnic\ChangelogCommitForLaravel\Commands\ChangelogCommitForLaravelCommand;
+use Mydnic\ChangelogCommitForLaravel\Commands\FetchGithubCommitCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class ChangelogCommitForLaravelServiceProvider extends PackageServiceProvider
 {
@@ -20,6 +21,11 @@ class ChangelogCommitForLaravelServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_changelog_commit_for_laravel_table')
-            ->hasCommand(ChangelogCommitForLaravelCommand::class);
+            ->hasCommand(FetchGithubCommitCommand::class)
+            ->hasInstallCommand(function (InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    ->publishMigrations();
+            });;
     }
 }

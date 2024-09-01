@@ -8,12 +8,11 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('changelog_commit_for_laravel_table', function (Blueprint $table) {
+        Schema::create('changelog', function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
-            $table->timestamps();
+            $table->string('commit_url');
+            $table->text('message');
+            $table->date('date');
         });
     }
 };
