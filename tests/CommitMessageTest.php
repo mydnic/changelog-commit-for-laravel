@@ -7,10 +7,12 @@ it('correctly fetches the message from a commit', function () {
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => 'feat: fix issue with authentication
+            'message' => <<<EOF
+feat: fix issue with authentication
 
 > You can now login without any issue
-> Enjoy!',
+> Enjoy!
+EOF,
         ],
     ];
 
@@ -28,9 +30,11 @@ it('ignores messages without a correctly formatted commit message', function () 
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => 'feat: fix issue with authentication
+            'message' => <<<EOF
+feat: fix issue with authentication
 
-Refactor the code',
+Refactor the code
+EOF,
         ],
     ];
 
@@ -46,9 +50,11 @@ it('ignores messages without a correctly formatted commit message but keep good 
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => 'feat: fix issue with authentication
+            'message' => <<<EOF
+feat: fix issue with authentication
 
-Refactor the code',
+Refactor the code
+EOF,
         ],
     ];
 
@@ -58,10 +64,12 @@ Refactor the code',
             'author' => [
                 'date' => '2021-01-01T00:00:00Z',
             ],
-            'message' => 'feat: fix issue with authentication
+            'message' => <<<EOF
+feat: fix issue with authentication
 
 > You can now login without any issue
-> Enjoy!',
+> Enjoy!
+EOF,
         ],
     ];
 
