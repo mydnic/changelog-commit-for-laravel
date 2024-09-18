@@ -10,7 +10,7 @@ class ChangelogCommitForLaravel
     public static function prepareCommits(Collection $commits): Collection
     {
         return $commits->map(function ($commit) {
-            $commitMessage = $commit['commit']['message'];
+            $commitMessage = $commit['commit']['message'] ?? '';
 
             // Check if the commit message contains a double newline
             if (($pos = strpos($commitMessage, "\n\n")) !== false) {
