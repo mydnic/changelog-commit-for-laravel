@@ -5,7 +5,7 @@ return [
     /**
      * The name of the table to store the changelog in.
      */
-    'table_name' => 'changelogs',
+    'table_name' => 'changelog',
 
     /**
      * The GitHub access token to use to fetch the commit history.
