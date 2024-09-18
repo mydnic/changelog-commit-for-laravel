@@ -2,6 +2,7 @@
 
 namespace Mydnic\ChangelogCommitForLaravel;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -28,7 +29,7 @@ class ChangelogCommitForLaravel
                     return [
                         'commit_url' => $commit['html_url'],
                         'message' => $detailedMessages,
-                        'date' => $commit['commit']['author']['date'],
+                        'date' => Carbon::parse($commit['commit']['author']['date'])->format('Y-m-d'),
                     ];
                 }
             }

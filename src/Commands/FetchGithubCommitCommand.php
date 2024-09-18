@@ -44,17 +44,21 @@ class FetchGithubCommitCommand extends Command
         $commits = collect();
 
         foreach (config('changelog-commit-for-laravel.github_repositories') as $repository) {
-            $commits->push(
-                Http::withHeaders([
-                    'Accept' => 'application/vnd.github+json',
-                    'Authorization' => 'Bearer '.config('changelog-commit-for-laravel.github_access_token'),
-                    'X-GitHub-Api-Version' => '2022-11-28',
-                ])
-                    ->get('https://api.github.com/repos/'.$repository.'/commits')
-                    ->json()
-            );
+            $repoCommits = Http::withHeaders([
+                'Accept' => 'application/vnd.github+json',
+                'Authorization' => 'Bearer '.config('changelog-commit-for-laravel.github_access_token'),
+                'X-GitHub-Api-Version' => '2022-11-28',
+            ])
+                ->get('https://api.github.com/repos/'.$repository.'/commits')
+                ->json();
+            
+            foreach ($repoCommits as $commit) {
+                $commits->push(
+                    $commit
+                );
+            }
         }
-
+        
         return $commits;
     }
 }
