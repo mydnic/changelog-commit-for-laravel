@@ -51,14 +51,14 @@ class FetchGithubCommitCommand extends Command
             ])
                 ->get('https://api.github.com/repos/'.$repository.'/commits')
                 ->json();
-            
+
             foreach ($repoCommits as $commit) {
                 $commits->push(
                     $commit
                 );
             }
         }
-        
+
         return $commits;
     }
 }
