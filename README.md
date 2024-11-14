@@ -105,7 +105,7 @@ Use the `Changelog` model to fetch the changelog entries in your application.
 ```php
 use Mydnic\ChangelogCommitForLaravel\Models\Changelog;
 
-$changelogs = Changelog::latest()->paginate(50);
+$changelogs = Changelog::latest('date')->paginate(50);
 
 return view('changelog', compact('changelogs'));
 // or return JSON response
