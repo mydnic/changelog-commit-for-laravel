@@ -204,6 +204,51 @@ export default defineComponent({
 </script>
 ```
 
+#### Laravel Blade
+
+```php
+class ChangelogController
+{
+    public function __invoke()
+    {
+        $changelog = DB::table(config('changelog-commit-for-laravel.table_name'))
+            ->select('message', 'date')
+            ->orderBy('date', 'desc')
+            ->paginate(10);
+
+        // Group by date
+        $groupedChangelog = $changelog->getCollection()->groupBy('date');
+
+        return view('changelog', [
+            'groupedChangelog' => $groupedChangelog,
+            'pagination' => $changelog // Pass pagination object
+        ]);
+    }
+}
+```
+
+```html
+<div>
+    @foreach ($groupedChangelog as $date => $items)
+        <h2 class="text-lg font-semibold text-gray-800 mt-5 mb-1 capitalize">
+            {{ \Carbon\Carbon::parse($date)->translatedFormat('l d M Y') }}
+        </h2>
+        <ul class="list-disc pl-4 text-gray-600 space-y-1">
+            @foreach ($items as $item)
+                <li class="text-sm">
+                    {{ $item->message }}
+                </li>
+            @endforeach
+        </ul>
+    @endforeach
+
+    {{-- Laravel Pagination Links --}}
+    <div class="mt-10">
+        {{ $pagination->links() }}
+    </div>
+</div>
+```
+
 ## Testing
 
 ```bash
