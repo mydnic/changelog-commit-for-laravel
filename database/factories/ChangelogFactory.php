@@ -12,6 +12,7 @@ class ChangelogFactory extends Factory
     {
         return [
             'commit_url' => $this->faker->url(),
+            'branch' => $this->faker->word(),
             'message' => $this->faker->sentence(),
             'date' => $this->faker->date(),
         ];

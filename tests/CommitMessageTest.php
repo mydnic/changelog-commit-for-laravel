@@ -7,18 +7,21 @@ function normalizeLineEndings($string)
 
 it('correctly fetches the message from a commit', function () {
     $commitMessage = [
-        'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
-        'commit' => [
-            'author' => [
-                'date' => '2021-01-01T00:00:00Z',
-            ],
-            'message' => normalizeLineEndings(<<<'EOF'
+        'branch' => 'main',
+        'github' => [
+            'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
+            'commit' => [
+                'author' => [
+                    'date' => '2021-01-01T00:00:00Z',
+                ],
+                'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 > You can now login without any issue
 > Enjoy!
 EOF
-            ),
+                ),
+            ],
         ],
     ];
 
@@ -31,17 +34,20 @@ EOF
 
 it('ignores messages without a correctly formatted commit message', function () {
     $commitMessage = [
-        'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
-        'commit' => [
-            'author' => [
-                'date' => '2021-01-01T00:00:00Z',
-            ],
-            'message' => normalizeLineEndings(<<<'EOF'
+        'branch' => 'main',
+        'github' => [
+            'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
+            'commit' => [
+                'author' => [
+                    'date' => '2021-01-01T00:00:00Z',
+                ],
+                'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 Refactor the code
 EOF
-            ),
+                ),
+            ],
         ],
     ];
 
@@ -52,33 +58,39 @@ EOF
 
 it('ignores messages without a correctly formatted commit message but keep good ones', function () {
     $badcommitMessage = [
-        'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
-        'commit' => [
-            'author' => [
-                'date' => '2021-01-01T00:00:00Z',
-            ],
-            'message' => normalizeLineEndings(<<<'EOF'
+        'branch' => 'main',
+        'github' => [
+            'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
+            'commit' => [
+                'author' => [
+                    'date' => '2021-01-01T00:00:00Z',
+                ],
+                'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 Refactor the code
 EOF
-            ),
+                ),
+            ],
         ],
     ];
 
     $commitMessage2 = [
-        'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
-        'commit' => [
-            'author' => [
-                'date' => '2021-01-01T00:00:00Z',
-            ],
-            'message' => normalizeLineEndings(<<<'EOF'
+        'branch' => 'main',
+        'github' => [
+            'html_url' => 'https://github.com/mydnic/changelog-commit-for-laravel/commit/123',
+            'commit' => [
+                'author' => [
+                    'date' => '2021-01-01T00:00:00Z',
+                ],
+                'message' => normalizeLineEndings(<<<'EOF'
 feat: fix issue with authentication
 
 > You can now login without any issue
 > Enjoy!
 EOF
-            ),
+                ),
+            ],
         ],
     ];
 
