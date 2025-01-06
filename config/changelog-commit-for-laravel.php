@@ -18,5 +18,7 @@ return [
     'github_repositories' => [
         'mydnic/changelog-commit-for-laravel', // change me
         // other repositories if you want to fetch the commit history from multiple repositories
+        // To specify a branch, make it an array like this one below:
+        // [ 'mydnic/changelog-commit-for-laravel', 'main' ]
     ],
 ];

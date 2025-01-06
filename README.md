@@ -63,6 +63,8 @@ return [
 ];
 ```
 
+When you are not specifying a branch, it will use the default `main` branch.
+ 
 ## Usage
 
 Once the package is installed on your project, you should add the `changelog:fetch` command to your deployment process.
@@ -214,7 +216,7 @@ class ChangelogController
     public function __invoke()
     {
         $changelog = DB::table(config('changelog-commit-for-laravel.table_name'))
-            ->select('message', 'date')
+            ->select('message', 'date', 'branch')
             ->orderBy('date', 'desc')
             ->paginate(10);
 
