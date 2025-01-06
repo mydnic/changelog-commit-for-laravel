@@ -57,13 +57,17 @@ return [
     'github_repositories' => [
         'mydnic/changelog-commit-for-laravel', // change me
         // other repositories if you want to fetch the commit history from multiple repositories
+        // To specify a branch, make it an array like this one below:
+        // [ 'mydnic/changelog-commit-for-laravel', 'main' ]
     ],
 ];
 ```
 
+When you are not specifying a branch, it will use the default `main` branch.
+ 
 ## Usage
 
-Once the package is installed on your project, you should add the `changelod:fetch` command to your deployment process.
+Once the package is installed on your project, you should add the `changelog:fetch` command to your deployment process.
 
 Now, every time your application is deployed, the changelog will be updated with the latest commit messages.
 
@@ -212,7 +216,7 @@ class ChangelogController
     public function __invoke()
     {
         $changelog = DB::table(config('changelog-commit-for-laravel.table_name'))
-            ->select('message', 'date')
+            ->select('message', 'date', 'branch')
             ->orderBy('date', 'desc')
             ->paginate(10);
 

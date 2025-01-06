@@ -11,7 +11,7 @@ class ChangelogCommitForLaravel
     public static function prepareCommits(Collection $commits): Collection
     {
         return $commits->map(function ($commit) {
-            $commitMessage = $commit['commit']['message'] ?? '';
+            $commitMessage = $commit['github']['commit']['message'] ?? '';
 
             // Check if the commit message contains a double newline
             if (($pos = strpos($commitMessage, "\n\n")) !== false) {
@@ -27,9 +27,10 @@ class ChangelogCommitForLaravel
 
                 if ($detailedMessages) {
                     return [
-                        'commit_url' => $commit['html_url'],
+                        'commit_url' => $commit['github']['html_url'],
+                        'branch' => $commit['branch'],
                         'message' => $detailedMessages,
-                        'date' => Carbon::parse($commit['commit']['author']['date'])->format('Y-m-d'),
+                        'date' => Carbon::parse($commit['github']['commit']['author']['date'])->format('Y-m-d'),
                     ];
                 }
             }

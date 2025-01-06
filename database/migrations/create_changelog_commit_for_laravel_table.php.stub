@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('changelog', function (Blueprint $table) {
             $table->id();
             $table->string('commit_url');
+            $table->string('branch');
             $table->text('message');
             $table->date('date');
         });
