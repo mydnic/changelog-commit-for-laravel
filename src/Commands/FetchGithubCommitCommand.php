@@ -45,17 +45,17 @@ class FetchGithubCommitCommand extends Command
         $commits = collect();
 
         foreach (config('changelog-commit-for-laravel.github_repositories') as $repository) {
-            $branch = [ 
-                'sha' => '', 
-                'name' => ''
+            $branch = [
+                'sha' => '',
+                'name' => '',
             ];
-            
-            if(is_array($repository)){
+
+            if (is_array($repository)) {
                 $branch['sha'] = '?sha='.$repository[1];
                 $branch['name'] = $repository[1];
                 $repository = $repository[0];
             } else {
-                $branch['name'] = 'main'; 
+                $branch['name'] = 'main';
             }
 
             $repoCommits = Http::withHeaders([
@@ -64,20 +64,21 @@ class FetchGithubCommitCommand extends Command
                 'X-GitHub-Api-Version' => '2022-11-28',
             ])
                 ->get('https://api.github.com/repos/'.$repository.'/commits'.$branch['sha']);
-            
-            if(!$repoCommits->successful()){
-                $this->error("Error while getting commit messages: " . $repoCommits->json()['message']);
+
+            if (! $repoCommits->successful()) {
+                $this->error('Error while getting commit messages: '.$repoCommits->json()['message']);
+
                 return collect();
             }
 
             foreach ($repoCommits->json() as $commit) {
                 $commits->push([
                     'branch' => $branch['name'],
-                    'github' => $commit
+                    'github' => $commit,
                 ]);
             }
         }
-        
+
         return $commits;
     }
 }
