@@ -1,5 +1,7 @@
 <?php
 
+use Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravel;
+
 function normalizeLineEndings($string)
 {
     return str_replace("\r\n", "\n", $string);
@@ -25,7 +27,7 @@ EOF
         ],
     ];
 
-    $result = \Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravel::prepareCommits(collect([$commitMessage]));
+    $result = ChangelogCommitForLaravel::prepareCommits(collect([$commitMessage]));
 
     expect($result[0])->toHaveKeys(['commit_url', 'message', 'date']);
     expect($result[0]['message'])->toContain('You can now login without any issue');
@@ -51,7 +53,7 @@ EOF
         ],
     ];
 
-    $result = \Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravel::prepareCommits(collect([$commitMessage]));
+    $result = ChangelogCommitForLaravel::prepareCommits(collect([$commitMessage]));
 
     expect($result)->toHaveCount(0);
 });
@@ -94,7 +96,7 @@ EOF
         ],
     ];
 
-    $result = \Mydnic\ChangelogCommitForLaravel\ChangelogCommitForLaravel::prepareCommits(collect([$badcommitMessage, $commitMessage2]));
+    $result = ChangelogCommitForLaravel::prepareCommits(collect([$badcommitMessage, $commitMessage2]));
 
     expect($result)->toHaveCount(1);
     expect($result[0]['message'])->toContain('You can now login without any issue');
