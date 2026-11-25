@@ -3,10 +3,11 @@
 namespace Mydnic\ChangelogCommitForLaravel\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mydnic\ChangelogCommitForLaravel\Models\Changelog;
 
 class ChangelogFactory extends Factory
 {
-    protected $model = \Mydnic\ChangelogCommitForLaravel\Models\Changelog::class;
+    protected $model = Changelog::class;
 
     public function definition()
     {
